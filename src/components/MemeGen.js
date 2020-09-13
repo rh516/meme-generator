@@ -18,15 +18,25 @@ function MemeGen() {
         fetchMemes()
             .then(res => {
                 const {memes} = res.data;
-                setState({
-                    ...state,
-                    allMemeImgs: memes
+                setState(prevState => {
+                    return {
+                        ...prevState,
+                        allMemeImgs: memes
+                    };
                 });
             });
     }, []);
 
+
     return (
-        <h1>Meme Generator Section</h1>
+        <div>
+            <h1>Meme Generator Section</h1>
+            <form className = "meme-form">
+                <input/>
+                <input/>
+                <button>Gen</button>
+            </form>
+        </div>
     );
 }
 
