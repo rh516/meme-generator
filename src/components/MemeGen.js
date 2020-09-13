@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
+import Draggable from "react-draggable";
 
 function MemeGen() {
     const [state, setState] = useState({
-        topText: "",
-        bottomText: "",
+        text1: "",
+        text2: "",
+        text3: "",
         randomImg: "http://i.imgflip.com/1bij.jpg",
         allMemeImgs: []
     });
@@ -38,17 +40,18 @@ function MemeGen() {
         });
     }
 
-    
+
     function handleClick() {
         // eslint-disable-next-line no-restricted-globals
         event.preventDefault();
-        const randNum = Math.floor(Math.random() * 100);
+        const randNum = Math.floor(Math.random() * state.allMemeImgs.length);
 
         setState(prevState => {
             return {
                 ...prevState,
-                topText: "",
-                bottomText: "",
+                text1: "",
+                text2: "",
+                text3: "",
                 randomImg: state.allMemeImgs[randNum].url
             };
         })
@@ -60,16 +63,23 @@ function MemeGen() {
             <form className = "meme-form">
                 <input
                     type="text"
-                    name="topText"
-                    value={state.topText}
-                    placeholder="Top Text"
+                    name="text1"
+                    value={state.text1}
+                    placeholder="Text 1"
                     onChange={handleChange}
                 />
                 <input
                     type="text"
-                    name="bottomText"
-                    value={state.bottomText}
-                    placeholder="Bottom Text"
+                    name="text2"
+                    value={state.text2}
+                    placeholder="Text 2"
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="text3"
+                    value={state.text3}
+                    placeholder="Text 3"
                     onChange={handleChange}
                 />
                 <button onClick={handleClick}>Gen</button>
@@ -77,8 +87,15 @@ function MemeGen() {
 
             <div className="meme">
                 <img src={state.randomImg} alt="Meme"/>
-                <h2 className="top">{state.topText}</h2>
-                <h2 className="bottom">{state.bottomText}</h2>
+                <Draggable>
+                    <h1 className="top">{state.text1}</h1>
+                </Draggable>
+                <Draggable>
+                    <h1 className="bottom">{state.text2}</h1>
+                </Draggable>
+                <Draggable>
+                    <h1 className="middle">{state.text3}</h1>
+                </Draggable>
             </div>
         </div>
     );
